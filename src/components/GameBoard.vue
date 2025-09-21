@@ -62,6 +62,11 @@
             ]"
             @click="makeMove(rowIndex, colIndex)"
           >
+            <!-- Cell coordinate display -->
+            <div class="cell-coordinate">
+              {{ String.fromCharCode(65 + rowIndex) }}{{ colIndex + 1 }}
+            </div>
+            
             <div 
               v-if="cell !== null"
               class="cell-content"
@@ -326,6 +331,32 @@ export default {
   min-height: 40px;
 }
 
+.cell-coordinate {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  font-size: 0.56rem;
+  font-weight: 900;
+  font-family: 'Arial', 'Helvetica', sans-serif;
+  color: rgba(0, 245, 255, 0.8);
+  text-shadow: 0 0 8px rgba(0, 245, 255, 0.5);
+  z-index: 1;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 2px 6px;
+  border-radius: 4px;
+  user-select: none;
+  transition: opacity 0.3s ease;
+  letter-spacing: 0.5px;
+}
+
+.cell.occupied .cell-coordinate {
+  opacity: 0.3;
+}
+
+.cell:hover .cell-coordinate {
+  opacity: 0.8;
+}
+
 .cell.available:hover {
   background: rgba(0, 245, 255, 0.1);
   border-color: var(--primary-color);
@@ -543,6 +574,14 @@ export default {
   
   .cell {
     min-height: 30px;
+  }
+  
+  .cell-coordinate {
+    font-size: 0.8rem;
+    top: 1px;
+    left: 1px;
+    padding: 1px 4px;
+    letter-spacing: 0.3px;
   }
   
   .cell-symbol {
