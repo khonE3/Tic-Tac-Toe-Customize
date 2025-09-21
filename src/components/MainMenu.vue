@@ -16,7 +16,8 @@
                 v-for="count in [2, 3, 4]" 
                 :key="count"
                 :class="['option-btn', { active: playerCount === count }]"
-                @click="playerCount = count"
+                @click="selectPlayerCount(count)"
+                @mouseenter="handleHover"
               >
                 {{ count }} Players
               </button>
@@ -31,7 +32,8 @@
                 v-for="size in boardSizes" 
                 :key="size"
                 :class="['option-btn', { active: boardSize === size }]"
-                @click="selectBoardSize(size)"
+                @click="selectBoardSizeWithSound(size)"
+                @mouseenter="handleHover"
               >
                 {{ size }}×{{ size }}
               </button>
@@ -46,7 +48,8 @@
                 v-for="condition in availableWinConditions" 
                 :key="condition"
                 :class="['option-btn', { active: winCondition === condition }]"
-                @click="winCondition = condition"
+                @click="selectWinCondition(condition)"
+                @mouseenter="handleHover"
               >
                 {{ condition }} in a row
               </button>
@@ -76,7 +79,7 @@
         </div>
         
         <div class="actions">
-          <button class="btn btn-primary btn-large" @click="startGame">
+          <button class="btn btn-primary btn-large" @click="startGame" @mouseenter="handleHover">
             <span class="btn-icon">🚀</span>
             Start Game
           </button>
@@ -107,6 +110,7 @@
 import { ref, computed } from 'vue'
 import { useGameStore } from '../stores/gameStore'
 import { useRouter } from 'vue-router'
+import { soundManager } from '../utils/soundManager'
 
 export default {
   name: 'MainMenu',
@@ -138,6 +142,7 @@ export default {
     }
     
     const startGame = () => {
+      soundManager.playSound('click')
       gameStore.updateSettings({
         boardSize: boardSize.value,
         winCondition: winCondition.value,
@@ -146,6 +151,27 @@ export default {
       
       gameStore.initializeBoard()
       router.push('/game')
+    }
+    
+    const handleButtonClick = (callback) => {
+      soundManager.playSound('click')
+      if (callback) callback()
+    }
+    
+    const handleHover = () => {
+      soundManager.playSound('hover')
+    }
+    
+    const selectPlayerCount = (count) => {
+      handleButtonClick(() => playerCount.value = count)
+    }
+    
+    const selectBoardSizeWithSound = (size) => {
+      handleButtonClick(() => selectBoardSize(size))
+    }
+    
+    const selectWinCondition = (condition) => {
+      handleButtonClick(() => winCondition.value = condition)
     }
     
     return {
@@ -158,7 +184,13 @@ export default {
       availableWinConditions,
       activePlayers,
       selectBoardSize,
-      startGame
+      startGame,
+      handleButtonClick,
+      handleHover,
+      selectPlayerCount,
+      selectBoardSizeWithSound,
+      selectWinCondition,
+      soundManager
     }
   }
 }

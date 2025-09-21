@@ -1,4 +1,5 @@
 import { defineStore } from 'pinia'
+import { soundManager } from '../utils/soundManager'
 
 export const useGameStore = defineStore('game', {
   state: () => ({
@@ -55,15 +56,22 @@ export const useGameStore = defineStore('game', {
       this.board[row][col] = this.currentPlayer
       this.lastMove = { row, col, player: this.currentPlayer }
       
+      // Play sound for current player
+      soundManager.playPlayerSound(this.currentPlayer)
+      
       // Check for win
       const winResult = this.checkWin(row, col)
       if (winResult) {
         this.winner = this.currentPlayer
         this.winningCells = winResult
         this.gameStatus = 'finished'
+        // Play win sound
+        setTimeout(() => soundManager.playSound('win'), 300)
       } else if (this.isBoardFull) {
         this.gameStatus = 'finished'
         this.winner = null // Draw
+        // Play draw sound
+        setTimeout(() => soundManager.playSound('draw'), 300)
       } else {
         this.currentPlayer = (this.currentPlayer + 1) % this.playerCount
       }

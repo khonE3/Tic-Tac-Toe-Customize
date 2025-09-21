@@ -101,12 +101,12 @@
       </div>
       
       <div class="action-buttons">
-        <button class="btn btn-primary" @click="restartGame">
+        <button class="btn btn-primary" @click="restartGame" @mouseenter="handleHover">
           <span class="btn-icon">🔄</span>
           New Game
         </button>
         
-        <button class="btn btn-secondary" @click="backToMenu">
+        <button class="btn btn-secondary" @click="backToMenu" @mouseenter="handleHover">
           <span class="btn-icon">🏠</span>
           Main Menu
         </button>
@@ -132,6 +132,7 @@
 import { ref, computed } from 'vue'
 import { useGameStore } from '../stores/gameStore'
 import { useRouter } from 'vue-router'
+import { soundManager } from '../utils/soundManager'
 
 export default {
   name: 'GameBoard',
@@ -170,12 +171,18 @@ export default {
     }
     
     const restartGame = () => {
+      soundManager.playSound('click')
       gameStore.initializeBoard()
     }
     
     const backToMenu = () => {
+      soundManager.playSound('click')
       gameStore.resetGame()
       router.push('/')
+    }
+    
+    const handleHover = () => {
+      soundManager.playSound('hover')
     }
     
     return {
@@ -194,7 +201,8 @@ export default {
       isWinningCell,
       isLastMove,
       restartGame,
-      backToMenu
+      backToMenu,
+      handleHover
     }
   }
 }
