@@ -110,43 +110,6 @@
           <span class="btn-icon">🏠</span>
           Main Menu
         </button>
-        
-        <button class="btn btn-tertiary" @click="showGameSettings = !showGameSettings">
-          <span class="btn-icon">⚙️</span>
-          Settings
-        </button>
-      </div>
-    </div>
-    
-    <!-- In-game Settings Modal -->
-    <div v-if="showGameSettings" class="settings-modal">
-      <div class="modal-content card">
-        <h3 class="text-xl mb-4 text-center">Game Settings</h3>
-        
-        <div class="setting-group">
-          <label class="setting-label">Sound Effects</label>
-          <div class="toggle-switch">
-            <input type="checkbox" v-model="soundEnabled" class="toggle-input">
-            <span class="toggle-slider"></span>
-          </div>
-        </div>
-        
-        <div class="setting-group">
-          <label class="setting-label">Animation Speed</label>
-          <input 
-            type="range" 
-            min="0.5" 
-            max="2" 
-            step="0.1"
-            v-model="animationSpeed"
-            class="slider"
-          >
-          <div class="slider-value">{{ animationSpeed }}x</div>
-        </div>
-        
-        <div class="actions">
-          <button class="btn" @click="showGameSettings = false">Close</button>
-        </div>
       </div>
     </div>
     
@@ -176,10 +139,6 @@ export default {
     const gameStore = useGameStore()
     const router = useRouter()
     
-    const showGameSettings = ref(false)
-    const soundEnabled = ref(true)
-    const animationSpeed = ref(1)
-    
     // Computed properties from store
     const board = computed(() => gameStore.board)
     const boardSize = computed(() => gameStore.boardSize)
@@ -199,9 +158,6 @@ export default {
     }
     
     const makeMove = (row, col) => {
-      if (soundEnabled.value) {
-        // Add sound effect here if needed
-      }
       gameStore.makeMove(row, col)
     }
     
@@ -223,9 +179,6 @@ export default {
     }
     
     return {
-      showGameSettings,
-      soundEnabled,
-      animationSpeed,
       board,
       boardSize,
       winCondition,
@@ -485,17 +438,6 @@ export default {
   justify-content: center;
 }
 
-.btn-tertiary {
-  background: transparent;
-  border: 1px solid var(--accent-color);
-  color: var(--accent-color);
-}
-
-.btn-tertiary:hover {
-  background: var(--accent-color);
-  color: #000;
-}
-
 .floating-elements {
   position: fixed;
   top: 0;
@@ -514,92 +456,6 @@ export default {
   border-radius: 50%;
   animation: float-bounce 6s ease-in-out infinite;
   opacity: 0.3;
-}
-
-.settings-modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.7);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-}
-
-.modal-content {
-  max-width: 400px;
-  width: 90%;
-}
-
-.setting-group {
-  margin-bottom: 1.5rem;
-}
-
-.setting-label {
-  display: block;
-  font-weight: 700;
-  margin-bottom: 0.5rem;
-  color: var(--primary-color);
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  font-size: 0.9rem;
-}
-
-.toggle-switch {
-  position: relative;
-  display: inline-block;
-  width: 60px;
-  height: 30px;
-}
-
-.toggle-input {
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
-
-.toggle-slider {
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(255, 255, 255, 0.1);
-  border: 1px solid var(--primary-color);
-  border-radius: 30px;
-  transition: 0.3s;
-}
-
-.toggle-slider:before {
-  position: absolute;
-  content: "";
-  height: 22px;
-  width: 22px;
-  left: 3px;
-  bottom: 3px;
-  background-color: var(--primary-color);
-  border-radius: 50%;
-  transition: 0.3s;
-}
-
-.toggle-input:checked + .toggle-slider {
-  background-color: var(--primary-color);
-}
-
-.toggle-input:checked + .toggle-slider:before {
-  transform: translateX(30px);
-  background-color: #000;
-}
-
-.slider-value {
-  text-align: center;
-  margin-top: 0.5rem;
-  color: var(--primary-color);
-  font-weight: bold;
 }
 
 /* Animations */
