@@ -58,7 +58,7 @@
           
           <!-- Player Preview -->
           <div class="players-preview">
-            <h4 class="text-lg mb-3 text-center">Players</h4>
+            <h4 class="text-lg mb-4 text-center">Players</h4>
             <div class="players-grid">
               <div 
                 v-for="player in activePlayers" 
@@ -90,7 +90,7 @@
     <!-- Footer -->
     <footer class="footer">
       <div class="footer-content">
-        <p class="footer-text">Created by</p>
+        <p class="footer-text">Created by <span class="creator-name">Gotjitag</span></p>
         <div class="footer-links">
           <a href="https://github.com/khonE3" target="_blank" class="footer-link">
             <img src="https://logos-world.net/wp-content/uploads/2020/11/GitHub-Symbol.png" alt="GitHub" class="footer-icon-img">
@@ -298,11 +298,14 @@ export default {
   min-width: 120px;
   overflow: hidden;
   position: relative;
+  box-sizing: border-box;
 }
 
 .player-card:hover {
-  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.08);
   box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+  border-width: 2px;
+  transform: scale(1.02);
 }
 
 .player-symbol {
@@ -369,6 +372,18 @@ export default {
   font-size: 0.9rem;
   text-transform: uppercase;
   letter-spacing: 1px;
+}
+
+.creator-name {
+  color: var(--primary-color);
+  font-weight: 700;
+  text-shadow: 0 0 10px rgba(0, 245, 255, 0.3);
+  transition: all 0.3s ease;
+}
+
+.creator-name:hover {
+  text-shadow: 0 0 15px rgba(0, 245, 255, 0.5);
+  transform: scale(1.05);
 }
 
 .footer-links {

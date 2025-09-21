@@ -450,12 +450,13 @@ export default {
 .players-status {
   display: flex;
   justify-content: center;
-  gap: 1rem;
-  flex-wrap: wrap;
+  gap: 0.8rem;
+  flex-wrap: nowrap;
   width: 100%;
   max-width: 100%;
   overflow-x: auto;
-  padding: 0.5rem 0;
+  padding: 0.5rem;
+  margin: 0 auto;
 }
 
 .player-status {
@@ -463,16 +464,17 @@ export default {
   flex-direction: column;
   align-items: center;
   gap: 0.5rem;
-  padding: 1rem;
+  padding: 0.8rem 0.6rem;
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 8px;
   transition: all 0.3s ease;
-  min-width: 100px;
-  max-width: 150px;
-  flex: 1 1 auto;
+  min-width: 90px;
+  max-width: 120px;
+  flex: 0 1 auto;
   overflow: hidden;
   position: relative;
+  box-sizing: border-box;
 }
 
 .player-status.active {
@@ -600,6 +602,77 @@ export default {
 .bounce { animation: bounce 2s ease-in-out infinite; }
 
 /* Responsive design */
+@media (min-width: 1200px) {
+  .players-status {
+    gap: 1.2rem;
+    max-width: 1200px;
+    flex-wrap: nowrap;
+  }
+  
+  .player-status {
+    min-width: 120px;
+    max-width: 140px;
+    padding: 1rem 0.8rem;
+    flex: 1;
+  }
+  
+  .status-symbol {
+    font-size: 1.6rem;
+  }
+  
+  .status-name {
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 1199px) and (min-width: 992px) {
+  .players-status {
+    gap: 1rem;
+    max-width: 1000px;
+    flex-wrap: nowrap;
+  }
+  
+  .player-status {
+    min-width: 100px;
+    max-width: 120px;
+    padding: 0.9rem 0.7rem;
+    flex: 1;
+  }
+  
+  .status-symbol {
+    font-size: 1.5rem;
+  }
+  
+  .status-name {
+    font-size: 0.8rem;
+    letter-spacing: 0.8px;
+  }
+}
+
+@media (max-width: 991px) and (min-width: 769px) {
+  .players-status {
+    gap: 0.8rem;
+    max-width: 900px;
+    flex-wrap: nowrap;
+  }
+  
+  .player-status {
+    min-width: 85px;
+    max-width: 105px;
+    padding: 0.8rem 0.6rem;
+    flex: 1;
+  }
+  
+  .status-symbol {
+    font-size: 1.4rem;
+  }
+  
+  .status-name {
+    font-size: 0.75rem;
+    letter-spacing: 0.6px;
+  }
+}
+
 @media (max-width: 768px) {
   .game-container {
     gap: 1rem;
@@ -655,11 +728,10 @@ export default {
   
   .players-status {
     gap: 0.5rem;
-    justify-content: flex-start;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
+    justify-content: center;
+    flex-wrap: wrap;
     padding: 0.5rem;
+    overflow-x: visible;
   }
   
   .player-status {
@@ -667,7 +739,6 @@ export default {
     min-width: 70px;
     max-width: 90px;
     flex: 0 0 auto;
-    scroll-snap-align: center;
   }
   
   .status-symbol {
