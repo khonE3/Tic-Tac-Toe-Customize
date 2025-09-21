@@ -117,12 +117,12 @@
         </button>
         
         <button class="btn btn-primary" @click="restartGame" @mouseenter="handleHover">
-          <span class="btn-icon">🔄</span>
+          <span class="btn-icon">↻</span>
           New Game
         </button>
         
         <button class="btn btn-secondary" @click="backToMenu" @mouseenter="handleHover">
-          <span class="btn-icon">🏠</span>
+          <span class="btn-icon">⌂</span>
           Main Menu
         </button>
       </div>
