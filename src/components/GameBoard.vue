@@ -106,6 +106,16 @@
       </div>
       
       <div class="action-buttons">
+        <button 
+          class="btn btn-undo" 
+          @click="undoMove" 
+          @mouseenter="handleHover"
+          :class="{ disabled: !canUndo }"
+        >
+          <span class="btn-icon">↶</span>
+          Undo
+        </button>
+        
         <button class="btn btn-primary" @click="restartGame" @mouseenter="handleHover">
           <span class="btn-icon">🔄</span>
           New Game
@@ -157,6 +167,7 @@ export default {
     const lastMove = computed(() => gameStore.lastMove)
     const players = computed(() => gameStore.players)
     const activePlayers = computed(() => gameStore.activePlayers)
+    const canUndo = computed(() => gameStore.canUndo)
     
     // Redirect to menu if no game is active
     if (gameStore.gameStatus === 'menu') {
@@ -190,6 +201,13 @@ export default {
       soundManager.playSound('hover')
     }
     
+    const undoMove = () => {
+      const result = gameStore.undoMove()
+      if (result) {
+        soundManager.playSound('undo')
+      }
+    }
+    
     return {
       board,
       boardSize,
@@ -202,12 +220,14 @@ export default {
       lastMove,
       players,
       activePlayers,
+      canUndo,
       makeMove,
       isWinningCell,
       isLastMove,
       restartGame,
       backToMenu,
-      handleHover
+      handleHover,
+      undoMove
     }
   }
 }
@@ -475,6 +495,35 @@ export default {
   gap: 1rem;
   flex-wrap: wrap;
   justify-content: center;
+}
+
+.btn-undo {
+  background: linear-gradient(45deg, #ff6b00, #ffa500);
+  color: #000;
+  border: none;
+  font-size: 0.9rem;
+  padding: 12px 20px;
+  box-shadow: 0 0 20px rgba(255, 107, 0, 0.3);
+  transition: all 0.3s ease;
+}
+
+.btn-undo:hover:not(.disabled) {
+  background: linear-gradient(45deg, #ffa500, #ff6b00);
+  box-shadow: 0 0 30px rgba(255, 107, 0, 0.5);
+  transform: translateY(-2px);
+}
+
+.btn-undo.disabled {
+  background: rgba(255, 107, 0, 0.3);
+  color: rgba(255, 255, 255, 0.5);
+  cursor: pointer;
+  box-shadow: 0 0 10px rgba(255, 107, 0, 0.2);
+}
+
+.btn-undo.disabled:hover {
+  background: rgba(255, 107, 0, 0.4);
+  box-shadow: 0 0 15px rgba(255, 107, 0, 0.3);
+  transform: translateY(-1px);
 }
 
 .floating-elements {

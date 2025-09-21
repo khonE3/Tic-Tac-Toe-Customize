@@ -15,6 +15,9 @@ export const useGameStore = defineStore('game', {
     winner: null,
     winningCells: [],
     
+    // Move history for undo functionality
+    moveHistory: [],
+    
     // Player configuration
     players: [
       { id: 0, symbol: '✖', name: 'Player 1', color: '#00f5ff' },
@@ -38,7 +41,8 @@ export const useGameStore = defineStore('game', {
     activePlayers: (state) => state.players.slice(0, state.playerCount),
     currentPlayerData: (state) => state.players[state.currentPlayer],
     isBoardFull: (state) => state.board.every(row => row.every(cell => cell !== null)),
-    gameFinished: (state) => state.gameStatus === 'finished'
+    gameFinished: (state) => state.gameStatus === 'finished',
+    canUndo: (state) => state.gameStatus === 'playing' || state.gameStatus === 'finished'
   },
   
   actions: {
@@ -51,6 +55,7 @@ export const useGameStore = defineStore('game', {
       this.winner = null
       this.winningCells = []
       this.lastMove = null
+      this.moveHistory = []
     },
     
     makeMove(row, col) {
@@ -59,6 +64,16 @@ export const useGameStore = defineStore('game', {
       }
       
       this.isAnimating = true
+      
+      // Save move to history before making the move
+      const moveData = { 
+        row, 
+        col, 
+        player: this.currentPlayer,
+        gameStatus: this.gameStatus
+      }
+      this.moveHistory.push(moveData)
+      
       this.board[row][col] = this.currentPlayer
       this.lastMove = { row, col, player: this.currentPlayer }
       
@@ -125,6 +140,41 @@ export const useGameStore = defineStore('game', {
       return null
     },
     
+    undoMove() {
+      // If there's move history, undo the last move
+      if (this.moveHistory.length > 0) {
+        const lastMove = this.moveHistory.pop()
+        
+        // Clear the cell that was just played
+        this.board[lastMove.row][lastMove.col] = null
+        
+        // Go back to the previous player (the one who made the last move)
+        this.currentPlayer = lastMove.player
+        
+        // Reset game status to playing
+        this.gameStatus = 'playing'
+        this.winner = null
+        this.winningCells = []
+        
+        // Update lastMove to the previous move (if any)
+        this.lastMove = this.moveHistory.length > 0 
+          ? this.moveHistory[this.moveHistory.length - 1] 
+          : null
+      } else {
+        // If no move history, just go back to previous player
+        this.currentPlayer = (this.currentPlayer - 1 + this.playerCount) % this.playerCount
+        
+        // Reset game status to playing if finished
+        if (this.gameStatus === 'finished') {
+          this.gameStatus = 'playing'
+          this.winner = null
+          this.winningCells = []
+        }
+      }
+      
+      return true
+    },
+    
     resetGame() {
       this.gameStatus = 'menu'
       this.board = []
@@ -132,6 +182,7 @@ export const useGameStore = defineStore('game', {
       this.winner = null
       this.winningCells = []
       this.lastMove = null
+      this.moveHistory = []
     },
     
     updateSettings(settings) {

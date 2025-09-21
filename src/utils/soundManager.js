@@ -33,6 +33,7 @@ export class SoundManager {
     // UI sounds
     this.sounds.click = this.createBeep(1000, 0.05, 'sine')
     this.sounds.hover = this.createBeep(1200, 0.03, 'sine')
+    this.sounds.undo = this.createUndoSound()
     this.sounds.win = this.createWinSound()
     this.sounds.draw = this.createDrawSound()
   }
@@ -56,6 +57,31 @@ export class SoundManager {
       
       oscillator.start(this.audioContext.currentTime)
       oscillator.stop(this.audioContext.currentTime + duration)
+    }
+  }
+
+  createUndoSound() {
+    return () => {
+      if (!this.audioContext) return
+      
+      // Create a descending beep sound for undo
+      const oscillator = this.audioContext.createOscillator()
+      const gainNode = this.audioContext.createGain()
+      
+      oscillator.connect(gainNode)
+      gainNode.connect(this.audioContext.destination)
+      
+      // Start high and go low (reverse effect)
+      oscillator.frequency.setValueAtTime(600, this.audioContext.currentTime)
+      oscillator.frequency.linearRampToValueAtTime(300, this.audioContext.currentTime + 0.2)
+      oscillator.type = 'triangle'
+      
+      gainNode.gain.setValueAtTime(0, this.audioContext.currentTime)
+      gainNode.gain.linearRampToValueAtTime(0.15, this.audioContext.currentTime + 0.01)
+      gainNode.gain.exponentialRampToValueAtTime(0.001, this.audioContext.currentTime + 0.2)
+      
+      oscillator.start(this.audioContext.currentTime)
+      oscillator.stop(this.audioContext.currentTime + 0.2)
     }
   }
 
