@@ -335,18 +335,18 @@ export default {
   position: absolute;
   top: 2px;
   left: 2px;
-  font-size: 0.56rem;
+  font-size: calc(min(80vw, 80vh) / var(--board-size) * 0.15);
   font-weight: 900;
   font-family: 'Arial', 'Helvetica', sans-serif;
   color: rgba(0, 245, 255, 0.8);
   text-shadow: 0 0 8px rgba(0, 245, 255, 0.5);
   z-index: 1;
   background: rgba(0, 0, 0, 0.5);
-  padding: 2px 6px;
-  border-radius: 4px;
+  padding: 1px 3px;
+  border-radius: 3px;
   user-select: none;
   transition: opacity 0.3s ease;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.3px;
 }
 
 .cell.occupied .cell-coordinate {
@@ -577,11 +577,11 @@ export default {
   }
   
   .cell-coordinate {
-    font-size: 0.8rem;
+    font-size: clamp(6px, calc(90vw / var(--board-size) * 0.12), 12px);
     top: 1px;
     left: 1px;
-    padding: 1px 4px;
-    letter-spacing: 0.3px;
+    padding: 0px 2px;
+    letter-spacing: 0.2px;
   }
   
   .cell-symbol {
