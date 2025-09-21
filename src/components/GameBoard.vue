@@ -452,6 +452,10 @@ export default {
   justify-content: center;
   gap: 1rem;
   flex-wrap: wrap;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  padding: 0.5rem 0;
 }
 
 .player-status {
@@ -465,6 +469,10 @@ export default {
   border-radius: 8px;
   transition: all 0.3s ease;
   min-width: 100px;
+  max-width: 150px;
+  flex: 1 1 auto;
+  overflow: hidden;
+  position: relative;
 }
 
 .player-status.active {
@@ -482,12 +490,20 @@ export default {
 .status-symbol {
   font-size: 1.5rem;
   font-weight: bold;
+  line-height: 1;
 }
 
 .status-name {
   font-size: 0.8rem;
   text-transform: uppercase;
   letter-spacing: 1px;
+  text-align: center;
+  word-break: break-word;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 100%;
+  max-width: 100%;
 }
 
 .action-buttons {
@@ -639,19 +655,29 @@ export default {
   
   .players-status {
     gap: 0.5rem;
+    justify-content: flex-start;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    padding: 0.5rem;
   }
   
   .player-status {
-    padding: 0.5rem;
-    min-width: 80px;
+    padding: 0.5rem 0.75rem;
+    min-width: 70px;
+    max-width: 90px;
+    flex: 0 0 auto;
+    scroll-snap-align: center;
   }
   
   .status-symbol {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
   }
   
   .status-name {
-    font-size: 0.7rem;
+    font-size: 0.65rem;
+    letter-spacing: 0.5px;
+    line-height: 1.1;
   }
   
   .action-buttons {
@@ -669,13 +695,67 @@ export default {
     font-size: 1.5rem;
   }
   
+  .players-status {
+    gap: 0.3rem;
+    padding: 0.3rem;
+  }
+  
+  .player-status {
+    padding: 0.4rem 0.5rem;
+    min-width: 60px;
+    max-width: 75px;
+    gap: 0.3rem;
+  }
+  
+  .status-symbol {
+    font-size: 1rem;
+  }
+  
+  .status-name {
+    font-size: 0.55rem;
+    letter-spacing: 0.3px;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  
   .action-buttons {
     flex-direction: column;
     width: 100%;
+    gap: 0.5rem;
   }
   
   .btn {
     width: 100%;
+    padding: 10px 16px;
+  }
+}
+
+@media (max-width: 360px) {
+  .players-status {
+    gap: 0.2rem;
+    padding: 0.2rem;
+  }
+  
+  .player-status {
+    padding: 0.3rem 0.4rem;
+    min-width: 50px;
+    max-width: 65px;
+    border-radius: 6px;
+  }
+  
+  .status-symbol {
+    font-size: 0.9rem;
+  }
+  
+  .status-name {
+    font-size: 0.5rem;
+    letter-spacing: 0.2px;
+  }
+  
+  .game-controls {
+    gap: 1rem;
   }
 }
 </style>

@@ -27,8 +27,6 @@ export class SoundManager {
     this.sounds.player5 = this.createBeep(500, 0.1, 'square')
     this.sounds.player6 = this.createBeep(350, 0.1, 'triangle')
     this.sounds.player7 = this.createBeep(750, 0.1, 'sawtooth')
-    this.sounds.player8 = this.createBeep(450, 0.1, 'sine')
-    this.sounds.player9 = this.createBeep(650, 0.1, 'square')
     
     // UI sounds
     this.sounds.click = this.createBeep(1000, 0.05, 'sine')

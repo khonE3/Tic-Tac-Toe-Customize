@@ -13,7 +13,7 @@
             <label class="setting-label">Number of Players</label>
             <div class="option-grid players-grid-large">
               <button 
-                v-for="count in [2, 3, 4, 5, 6, 7, 8, 9, 10]" 
+                v-for="count in [2, 3, 4, 5, 6, 7, 8]" 
                 :key="count"
                 :class="['option-btn', { active: playerCount === count }]"
                 @click="selectPlayerCount(count)"
@@ -122,7 +122,7 @@ export default {
     const boardSize = ref(3)
     const winCondition = ref(3)
     
-    const boardSizes = [3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
+    const boardSizes = [3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
     
     const minWinCondition = computed(() => 3)
     const maxWinCondition = computed(() => Math.min(6, boardSize.value))
@@ -238,8 +238,9 @@ export default {
 
 .players-grid-large {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
   gap: 0.4rem;
+  justify-items: stretch;
 }
 
 .option-btn {
@@ -253,6 +254,14 @@ export default {
   font-size: 0.8rem;
   transition: all 0.3s ease;
   text-transform: uppercase;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .option-btn:hover {
@@ -273,8 +282,10 @@ export default {
 
 .players-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
   gap: 1rem;
+  max-width: 100%;
+  overflow: hidden;
 }
 
 .player-card {
@@ -284,6 +295,9 @@ export default {
   padding: 1rem;
   text-align: center;
   transition: all 0.3s ease;
+  min-width: 120px;
+  overflow: hidden;
+  position: relative;
 }
 
 .player-card:hover {
@@ -295,12 +309,18 @@ export default {
   font-size: 2rem;
   font-weight: bold;
   margin-bottom: 0.5rem;
+  line-height: 1;
 }
 
 .player-name {
   font-size: 0.8rem;
   text-transform: uppercase;
   letter-spacing: 1px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 100%;
+  line-height: 1.2;
 }
 
 .actions {
@@ -394,28 +414,94 @@ export default {
   transform: scale(1.1);
 }
 
+@media (max-width: 1200px) {
+  .players-grid {
+    grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+    gap: 0.8rem;
+  }
+  
+  .player-card {
+    min-width: 110px;
+    padding: 0.9rem;
+  }
+  
+  .player-name {
+    font-size: 0.75rem;
+  }
+}
+
+@media (max-width: 992px) {
+  .players-grid {
+    grid-template-columns: repeat(auto-fit, minmax(95px, 1fr));
+    gap: 0.7rem;
+  }
+  
+  .player-card {
+    min-width: 95px;
+    padding: 0.8rem;
+  }
+  
+  .player-symbol {
+    font-size: 1.8rem;
+  }
+  
+  .player-name {
+    font-size: 0.7rem;
+    letter-spacing: 0.8px;
+  }
+}
+
 @media (max-width: 768px) {
   .main-menu {
     padding: 1rem;
   }
   
+  .title {
+    font-size: 2.5rem;
+  }
+  
+  .subtitle {
+    font-size: 1rem;
+  }
+  
   .option-grid {
-    grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(85px, 1fr));
+    gap: 0.4rem;
   }
   
   .players-grid-large {
-    grid-template-columns: repeat(auto-fit, minmax(70px, 1fr));
-    gap: 0.3rem;
+    grid-template-columns: repeat(auto-fit, minmax(85px, 1fr));
+    gap: 0.4rem;
+    justify-items: stretch;
   }
   
   .players-grid {
-    grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
-    gap: 0.3rem;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 0.6rem;
+  }
+  
+  .player-card {
+    padding: 0.8rem 0.6rem;
+    min-width: 90px;
+  }
+  
+  .player-symbol {
+    font-size: 1.5rem;
+  }
+  
+  .player-name {
+    font-size: 0.75rem;
+    letter-spacing: 0.5px;
+    white-space: normal;
+    line-height: 1.2;
   }
   
   .option-btn {
-    padding: 6px 8px;
+    padding: 10px 6px;
     font-size: 0.7rem;
+    line-height: 1.2;
+    min-height: 38px;
+    white-space: nowrap;
   }
   
   .actions {
@@ -433,6 +519,127 @@ export default {
   
   .footer-link {
     justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .title {
+    font-size: 2rem;
+  }
+  
+  .subtitle {
+    font-size: 0.9rem;
+  }
+  
+  .setting-label {
+    font-size: 0.8rem;
+  }
+  
+  .option-grid {
+    grid-template-columns: repeat(auto-fit, minmax(75px, 1fr));
+    gap: 0.35rem;
+  }
+  
+  .players-grid-large {
+    grid-template-columns: repeat(auto-fit, minmax(75px, 1fr));
+    gap: 0.35rem;
+    justify-items: stretch;
+  }
+  
+  .players-grid {
+    grid-template-columns: repeat(auto-fit, minmax(85px, 1fr));
+    gap: 0.5rem;
+  }
+  
+  .player-card {
+    padding: 0.7rem 0.4rem;
+    min-width: 80px;
+    border-width: 1.5px;
+  }
+  
+  .player-symbol {
+    font-size: 1.3rem;
+    margin-bottom: 0.4rem;
+  }
+  
+  .player-name {
+    font-size: 0.65rem;
+    letter-spacing: 0.3px;
+    line-height: 1.2;
+    white-space: normal;
+    overflow: visible;
+    text-overflow: initial;
+  }
+  
+  .option-btn {
+    padding: 8px 4px;
+    font-size: 0.65rem;
+    line-height: 1.2;
+    min-height: 36px;
+    white-space: nowrap;
+  }
+  
+  .btn-large {
+    font-size: 1rem;
+    padding: 14px 20px;
+  }
+}
+
+@media (max-width: 360px) {
+  .main-menu {
+    padding: 0.75rem;
+  }
+  
+  .title {
+    font-size: 1.75rem;
+  }
+  
+  .option-grid {
+    grid-template-columns: repeat(auto-fit, minmax(65px, 1fr));
+    gap: 0.3rem;
+  }
+  
+  .players-grid-large {
+    grid-template-columns: repeat(auto-fit, minmax(65px, 1fr));
+    gap: 0.3rem;
+    justify-items: stretch;
+  }
+  
+  .players-grid {
+    grid-template-columns: repeat(auto-fit, minmax(70px, 1fr));
+    gap: 0.4rem;
+  }
+  
+  .player-card {
+    padding: 0.6rem 0.3rem;
+    min-width: 65px;
+    border-radius: 6px;
+  }
+  
+  .player-symbol {
+    font-size: 1.1rem;
+    margin-bottom: 0.3rem;
+  }
+  
+  .player-name {
+    font-size: 0.6rem;
+    letter-spacing: 0.2px;
+    line-height: 1.2;
+    white-space: normal;
+    overflow: visible;
+    text-overflow: initial;
+  }
+  
+  .option-btn {
+    padding: 6px 3px;
+    font-size: 0.6rem;
+    line-height: 1.2;
+    min-height: 32px;
+    white-space: nowrap;
+  }
+  
+  .setting-group {
+    margin-bottom: 1rem;
   }
 }
 </style>
