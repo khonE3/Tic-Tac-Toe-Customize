@@ -577,11 +577,11 @@ export default {
   }
   
   .cell-coordinate {
-    font-size: clamp(6px, calc(90vw / var(--board-size) * 0.12), 12px);
+    font-size: clamp(4px, calc(90vw / var(--board-size) * 0.08), 10px);
     top: 1px;
     left: 1px;
-    padding: 0px 2px;
-    letter-spacing: 0.2px;
+    padding: 0px 1px;
+    letter-spacing: 0.1px;
   }
   
   .cell-symbol {

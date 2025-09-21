@@ -11,9 +11,9 @@
           <!-- Player Count -->
           <div class="setting-group">
             <label class="setting-label">Number of Players</label>
-            <div class="option-grid">
+            <div class="option-grid players-grid-large">
               <button 
-                v-for="count in [2, 3, 4]" 
+                v-for="count in [2, 3, 4, 5, 6, 7, 8, 9, 10]" 
                 :key="count"
                 :class="['option-btn', { active: playerCount === count }]"
                 @click="selectPlayerCount(count)"
@@ -122,7 +122,7 @@ export default {
     const boardSize = ref(3)
     const winCondition = ref(3)
     
-    const boardSizes = [3, 4, 5, 6, 7, 8, 9, 10]
+    const boardSizes = [3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
     
     const minWinCondition = computed(() => 3)
     const maxWinCondition = computed(() => Math.min(6, boardSize.value))
@@ -234,6 +234,12 @@ export default {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
   gap: 0.5rem;
+}
+
+.players-grid-large {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+  gap: 0.4rem;
 }
 
 .option-btn {
@@ -397,8 +403,19 @@ export default {
     grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
   }
   
+  .players-grid-large {
+    grid-template-columns: repeat(auto-fit, minmax(70px, 1fr));
+    gap: 0.3rem;
+  }
+  
   .players-grid {
-    grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
+    gap: 0.3rem;
+  }
+  
+  .option-btn {
+    padding: 6px 8px;
+    font-size: 0.7rem;
   }
   
   .actions {

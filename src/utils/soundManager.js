@@ -18,17 +18,17 @@ export class SoundManager {
   }
 
   createSounds() {
-    // Player 1 sound - High frequency beep
+    // Player sounds - Different frequencies and wave types for each player
     this.sounds.player0 = this.createBeep(800, 0.1, 'sine')
-    
-    // Player 2 sound - Medium frequency beep
     this.sounds.player1 = this.createBeep(600, 0.1, 'square')
-    
-    // Player 3 sound - Low frequency beep
     this.sounds.player2 = this.createBeep(400, 0.1, 'triangle')
-    
-    // Player 4 sound - Very low frequency beep
     this.sounds.player3 = this.createBeep(300, 0.1, 'sawtooth')
+    this.sounds.player4 = this.createBeep(900, 0.1, 'sine')
+    this.sounds.player5 = this.createBeep(500, 0.1, 'square')
+    this.sounds.player6 = this.createBeep(350, 0.1, 'triangle')
+    this.sounds.player7 = this.createBeep(750, 0.1, 'sawtooth')
+    this.sounds.player8 = this.createBeep(450, 0.1, 'sine')
+    this.sounds.player9 = this.createBeep(650, 0.1, 'square')
     
     // UI sounds
     this.sounds.click = this.createBeep(1000, 0.05, 'sine')

@@ -20,7 +20,13 @@ export const useGameStore = defineStore('game', {
       { id: 0, symbol: '✖', name: 'Player 1', color: '#00f5ff' },
       { id: 1, symbol: '⭕', name: 'Player 2', color: '#ff0080' },
       { id: 2, symbol: '▲', name: 'Player 3', color: '#00ff80' },
-      { id: 3, symbol: '◆', name: 'Player 4', color: '#ffff00' }
+      { id: 3, symbol: '◆', name: 'Player 4', color: '#ffff00' },
+      { id: 4, symbol: '★', name: 'Player 5', color: '#ff8000' },
+      { id: 5, symbol: '●', name: 'Player 6', color: '#8000ff' },
+      { id: 6, symbol: '■', name: 'Player 7', color: '#ff0040' },
+      { id: 7, symbol: '♦', name: 'Player 8', color: '#40ff00' },
+      { id: 8, symbol: '♠', name: 'Player 9', color: '#0080ff' },
+      { id: 9, symbol: '♥', name: 'Player 10', color: '#ff4080' }
     ],
     
     // Animation state
